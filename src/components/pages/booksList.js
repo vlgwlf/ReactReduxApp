@@ -51,5 +51,5 @@ function mapDispatchToProps(dispatch){
         getBooks:getBooks
     }, dispatch)
 }
-
+console.log(getBooks());
 export default connect(mapStateToProps, mapDispatchToProps)(BooksList);

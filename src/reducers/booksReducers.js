@@ -42,13 +42,14 @@ export function booksReducers(state={
         }
         // This log shows you the new book object in the console
         console.log("Updated book", newBookToUpdate);
-        /* Use the clice method to remove the book at the specified index, replace with the new object
+        /* Use the slice method to remove the book at the specified index, replace with the new object
         and concatenate with the rest of the items in the array */
         return {books: [...currentBookToUpdate.slice(0, indexToUpdate), newBookToUpdate,
         ...currentBookToUpdate.slice(indexToUpdate + 1)]};
         break;
 
-        case "GET_BOOK":
+        case "GET_BOOKS":
+        console.log(...action.payload);
         return {...state, books:[...action.payload]}
     }
     return state

@@ -35,33 +35,7 @@ const Routing = (
         </Router>
     </Provider>
 );
-
+//console.log({BooksList})
 render(
     Routing, document.getElementById('app')
 );
-
-//Step 2 define and dispatch actions
-/*
-store.dispatch(postBooks(
-
-));
-
-//DELETE a book
-store.dispatch(deleteBooks(
-    {id: 1}
-));
-
-// UPDATE a book
-store.dispatch(updateBooks(
-    {
-        id: 2,
-        title: 'Learn React in 24 hours'
-    }
-));
-
-
-//---->> CART ACTIONS <<-----
-
-//ADD to cart
-store.dispatch(addToCart([{id: 1}]));
-*/

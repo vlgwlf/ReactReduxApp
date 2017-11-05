@@ -5489,7 +5489,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //GET BOOKS
 function getBooks() {
   return function (dispatch) {
-    _axios2.default.get("/books").then(function (response) {
+    _axios2.default.get("/api/books").then(function (response) {
       dispatch({ type: "GET_BOOKS", payload: response.data });
     }).catch(function (err) {
       dispatch({ type: "GET_BOOKS_REJECTED", payload: err });
@@ -5500,7 +5500,7 @@ function getBooks() {
 //POST BOOKS
 function postBooks(book) {
   return function (dispatch) {
-    _axios2.default.post("/books", book).then(function (response) {
+    _axios2.default.post("/api/books", book).then(function (response) {
       dispatch({ type: "POST_BOOK", payload: response.data });
     }).catch(function (err) {
       dispatch({ type: "POST_BOOK_REJECTED", payload: "There was an error posting your book." });
@@ -5510,9 +5510,12 @@ function postBooks(book) {
 
 //DELETE BOOKS
 function deleteBooks(id) {
-  return {
-    type: "DELETE_BOOK",
-    payload: id
+  return function (dispatch) {
+    _axios2.default.delete("/api/books/" + id).then(function (response) {
+      dispatch({ type: "DELETE_BOOK", payload: id });
+    }).catch(function (err) {
+      dispatch({ type: "DELETE_BOOK_REJECTED", payload: err });
+    });
   };
 }
 
@@ -13385,34 +13388,8 @@ var Routing = _react2.default.createElement(
         )
     )
 );
-
+//console.log({BooksList})
 (0, _reactDom.render)(Routing, document.getElementById('app'));
-
-//Step 2 define and dispatch actions
-/*
-store.dispatch(postBooks(
-
-));
-
-//DELETE a book
-store.dispatch(deleteBooks(
-    {id: 1}
-));
-
-// UPDATE a book
-store.dispatch(updateBooks(
-    {
-        id: 2,
-        title: 'Learn React in 24 hours'
-    }
-));
-
-
-//---->> CART ACTIONS <<-----
-
-//ADD to cart
-store.dispatch(addToCart([{id: 1}]));
-*/
 
 /***/ }),
 /* 189 */
@@ -38049,6 +38026,8 @@ exports.booksReducers = booksReducers;
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function booksReducers() {
+    var _console;
+
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
         books: []
     };
@@ -38085,12 +38064,13 @@ function booksReducers() {
                 title: action.payload.title
                 // This log shows you the new book object in the console
             });console.log("Updated book", newBookToUpdate);
-            /* Use the clice method to remove the book at the specified index, replace with the new object
+            /* Use the slice method to remove the book at the specified index, replace with the new object
             and concatenate with the rest of the items in the array */
             return { books: [].concat(_toConsumableArray(currentBookToUpdate.slice(0, indexToUpdate)), [newBookToUpdate], _toConsumableArray(currentBookToUpdate.slice(indexToUpdate + 1))) };
             break;
 
-        case "GET_BOOK":
+        case "GET_BOOKS":
+            (_console = console).log.apply(_console, _toConsumableArray(action.payload));
             return _extends({}, state, { books: [].concat(_toConsumableArray(action.payload)) });
     }
     return state;
@@ -39172,7 +39152,7 @@ function mapDispatchToProps(dispatch) {
         getBooks: _booksActions.getBooks
     }, dispatch);
 }
-
+console.log((0, _booksActions.getBooks)());
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(BooksList);
 
 /***/ }),
