@@ -4,7 +4,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {getBooks} from '../../actions/booksActions';
-import {Grid,Col,Row,Button} from 'react-bootstrap';
+import {Carousel, Grid, Col, Row, Button} from 'react-bootstrap';
 import BookItem from './BookItem'
 import BooksForm from './booksForm'
 import Cart from './cart';
@@ -21,6 +21,7 @@ class BooksList extends React.Component{
                     _id={booksArr._id}
                     title={booksArr.title}
                     description={booksArr.description}
+                    images={booksArr.images}
                     price={booksArr.price}/>
                 </Col>
             )
@@ -28,12 +29,27 @@ class BooksList extends React.Component{
         return(
             <Grid>
                 <Row>
+                <Carousel>
+                  <Carousel.Item>
+                    <img width={900} height={500} alt="900x500" src="/images/Acerola.png" />
+                    <Carousel.Caption>
+                      <h3>First slide label</h3>
+                      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                  <Carousel.Item>
+                    <img width={900} height={500} alt="900x500" src="/images/brraesaea.jpg" />
+                    <Carousel.Caption>
+                      <h3>Second slide label</h3>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                </Carousel>
+                </Row>
+                <Row>
                     <Cart />
                 </Row>
                 <Row style={{marginTop:'15px'}}>
-                <Col xs={12} sm={6}>
-                    <BooksForm />
-                </Col>
                 {booksList}
                 </Row>
             </Grid>
