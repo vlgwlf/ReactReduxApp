@@ -4,7 +4,6 @@ import React from 'react';
 import {render} from 'react-dom';
 import {Provider} from 'react-redux';
 //REACT-ROUTER
-import {Router, Route, IndexRoute, browserHistory} from 'react-router';
 import {applyMiddleware, createStore} from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
@@ -17,23 +16,14 @@ import {postBooks, deleteBooks, updateBooks} from './actions/booksActions';
 
 //Import Store & Middleware
 const middleware = applyMiddleware(thunk, logger);
-const store = createStore(reducers, middleware);
-
-import BooksList from './components/pages/booksList';
-import Cart from './components/pages/cart';
-import BooksForm from './components/pages/booksForm';
-import Main from './main';
-
+// PASS INITIAL STATE FROM SERVER STORE
+const initialState = window.INITIAL_STATE;
+const store = createStore(reducers, initialState, middleware);
+import routes from './routes';
 const Routing = (
-    <Provider store={store}>
-        <Router history={browserHistory}>
-            <Route path="/" component={Main}>
-                <IndexRoute component={BooksList} />
-                <Route path="/admin" component={BooksForm} />
-                <Route path="/cart" component={Cart} />
-            </Route>
-        </Router>
-    </Provider>
+  <Provider store={store}>
+    {routes}
+  </Provider>
 );
 //console.log({BooksList})
 render(
