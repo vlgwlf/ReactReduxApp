@@ -138,7 +138,7 @@ app.get('/images', function(req, res){
 })
 
 // END APIs
-app.listen(process.env.PORT, function(err){
+app.listen(process.env.PORT || 3001, function(err){
   if(err){
     return console.log(err);
   }
